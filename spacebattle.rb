@@ -13,18 +13,27 @@ end
 ## readup on standard python random library that is imported into this file
 ## https://docs.python.org/3/library/random.html
 def generateHull()
+    # two dot ellipsis is inclusive
+    return (rand(3.0..6.0))
 end
 
 ## generateFirepower should generate a number between 2 & 4
 def generateFirepower()
+    return (rand(2.0..4.0))
 end
 
 ## generateAccuracy should generate a number between .6 & .8
 def generateAccuracy()
+    return (rand 0.6..0.8)
 end
 
 ## Should return a list of 6 Enemy ships with random stands
 def enemy_fleet()
+    enemy_fleet = []
+    for count in 1..6 do 
+        enemy_fleet.push(Ship.new(generateHull, generateFirepower, generateAccuracy))
+    end
+    p enemy_fleet
 end
 
 ## accuracy_check should
