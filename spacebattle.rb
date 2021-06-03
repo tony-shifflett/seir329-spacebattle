@@ -6,6 +6,9 @@ class Ship
 
     ## Constructor, should create hull, firepower and accuracy properties
     def initialize(hull, firepower, accuracy)
+        @hull = hull
+        @firepower = firepower
+        @accuracy = accuracy
     end
 end
 
@@ -29,11 +32,11 @@ end
 
 ## Should return a list of 6 Enemy ships with random stands
 def enemy_fleet()
-    enemy_fleet = []
+    enemy_fleet = Array.new
     for count in 1..6 do 
         enemy_fleet.push(Ship.new(generateHull, generateFirepower, generateAccuracy))
     end
-    p enemy_fleet
+    return enemy_fleet
 end
 
 ## accuracy_check should
@@ -42,6 +45,7 @@ end
 # - If that number is equal or below the ships accuracy return true
 # - If that number is above the ships return false
 def accuracy_check(acc)
+   return  acc > rand  
 end
 
 ## Battle, should take an attacking and defending ship
@@ -49,12 +53,23 @@ end
 # - the defending ships hull should be reduced by the attacking ships firepower
 # - if misses return false
 def battle(attacker, defender)
+    if accuracy_check(attacker.accuracy)  
+    defender.hull - attacker.firepower
+    else
+        return false
+    end
 end
 
 ##full_battle should loop and allow two ships to attack each other until one dies.
 ## if ship wins, return true
 ## if ship2 wins, return false
 def full_battle(ship, ship2)
+    while ship.hull > 0 and ship2.hull > 0 do
+        if battle(ship, ship2)
+         
+
+    end 
+     return ship.hull > ship2.hull 
 end
         
 
@@ -69,6 +84,7 @@ def game_loop()
     while(full_battle($you, $enemies[0]))
         ## remove defeated ship from list
         $enemies.shift
+        p $you.hull 
         ## If no $enemies left, you win
         if ($enemies.length <= 0)
             puts("you have defeated the enemy fleet!")
